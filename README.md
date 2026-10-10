@@ -14,6 +14,9 @@ A terminal-based Python RPG. A quiet exercise in finding structure amidst the no
 
 Based on the study materials and repository by [Lucas Lattari](https://github.com/lucaslattari/fibula_rpg_poo).
 
+> 🎯 **Project Purpose & Playground**:
+> This is my main sandbox project for experimenting with advanced Python features, `dataclasses`, algorithms, data structures, and software architecture concepts as I learn them.
+
 ## The Process
 
 Writing code often feels like drawing on a blank page: we start with quick, messy sketches until we feel the need to trace clearer margins.
