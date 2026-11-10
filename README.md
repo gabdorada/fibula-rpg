@@ -27,6 +27,19 @@ git clone https://github.com/<your-username>/fibula-rpg.git
 cd fibula-rpg
 python fibula_rpg.py
 ```
+## Documentation & Architecture
+
+All the engineering planning, database modeling, and architectural decisions for this project are fully documented:
+
+- 📖 [Access Full Documentation on Google Docs](Yhttps://docs.google.com/document/d/1kBHUqnA7eby_nga2Mo1MH0krLE2cQ65YVrwrmnBsZ58/edit?usp=sharing)
+
+### What's inside the documentation:
+- **Overview & Architecture:** High-level project design and layered architecture principles.
+- **System Design:** Breakdown of layers (UI, Controllers, Services, Repositories).
+- **Python & Logic:** Applied core concepts and clean code standards.
+- **Database Modeling:** Relational schema (`players`, `items`, `inventory`) and SQL queries.
+- **REST APIs & Git/GitHub:** Communication patterns and version control workflows.
+
 
 ## How to play
 
