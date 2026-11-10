@@ -31,7 +31,7 @@ python fibula_rpg.py
 
 All the engineering planning, database modeling, and architectural decisions for this project are fully documented:
 
-- 📖 [Access Full Documentation on Google Docs](Yhttps://docs.google.com/document/d/1kBHUqnA7eby_nga2Mo1MH0krLE2cQ65YVrwrmnBsZ58/edit?usp=sharing)
+- 📖 [Access Full Documentation on Google Docs](https://docs.google.com/document/d/1kBHUqnA7eby_nga2Mo1MH0krLE2cQ65YVrwrmnBsZ58/edit?usp=sharing)
 
 ### What's inside the documentation:
 - **Overview & Architecture:** High-level project design and layered architecture principles.
