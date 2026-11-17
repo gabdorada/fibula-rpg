@@ -7,7 +7,7 @@ from models.item import Item
 class Player(Character):
     level: int = 1
     exp: int = 0
-    inventory = list[Item] = field(default_factory=list)
+    inventory: list[Item] = field(default_factory=list)
 
     @property
     def required_exp(self) -> int:
