@@ -7,7 +7,7 @@ class Monster(Character):
     exp_reward: int = 0
 
     @classmethod
-    def spawn_fo_level(cls, player_level: int) -> "Monster":
+    def spawn_for_level(cls, player_level: int) -> "Monster":
         if player_level < 5:
             pool = [
                 cls(name='Slime', hp=20, max_exp=20, strength=2, exp_reward=2),
