@@ -4,4 +4,4 @@ from dataclasses import dataclass
 class Item:
     name: str
     item_type: str          # ex: 'potion', 'weapon'
-    effect_value = int 
+    effect_value: int 
