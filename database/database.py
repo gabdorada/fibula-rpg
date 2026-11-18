@@ -106,18 +106,7 @@ class Database:
     def close(self):
         self.conn.close()
 
-
-
-
-
-
-
-
-
-
-
-
-# Teste rápido:
+# Quick test
 if __name__ == "__main__":
     db = Database()
-    print("Banco de dados e tabelas criados com sucesso!")
+    print("Database and tables created successfully!")
