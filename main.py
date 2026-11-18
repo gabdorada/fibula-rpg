@@ -1,5 +1,6 @@
 import random
 from models import Player, Monster, Item
+from database import Database
 
 # 1. Function to display the opening title
 def show_title():
@@ -36,10 +37,24 @@ def handle_combat(attacker, defender):
 # 4. Main Game Function
 def main():
     show_title()
+    db = Database()
 
-    # Player Initialization in OOP
-    hero_name = input('Enter the name of your heroine/hero: ')
-    player = Player(name=hero_name, hp=100, max_exp=100, strength=3)
+    # Game Load or New Game Choice
+    choice = input('1. New Game\n2. Load Game\n')
+
+    player = None 
+    if choice == 2:
+        hero_name = input('Enter your saved heroine/hero name: ')
+        player = db.load_player(hero_name)
+        if not player:
+            print('Character not found! Creating a new game...')
+            
+    if not player:
+        hero_name = input('Enter the name of your heroine/hero: ')
+        player = Player(name=hero_name, hp=100, max_exp=100, strength=3)
+
+    # Save initial state to database
+    db.save_player(player)
     print('\n')
 
     current_monster = None
