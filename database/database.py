@@ -20,7 +20,7 @@ class Database:
                 level INTEGER,
                 exp INTEGER
             )
-        """
+            """
         )
         # Player Inventory Table
         cursor.execute(
@@ -33,7 +33,7 @@ class Database:
                 effect_value INTEGER,
                 FOREIGN KEY(player_name) REFERENCES player(name)
             )
-        """
+            """
         )
         self.conn.commit()
 
@@ -44,7 +44,7 @@ class Database:
             """
             INSERT OR REPLACE INTO player (name, hp, max_exp, strength, level, exp)
             VALUES (?, ?, ?, ?, ?, ?)
-        """, 
+             """, 
             (
                 player.name,
                 player.hp,
@@ -64,7 +64,7 @@ class Database:
                 """ 
                 INSERT INTO inventory (player_name, item_name, item_type, effect_value)
                 VALUES (?, ?, ?, ?)
-            """,
+                """,
                 (player.name, item.name, item.item_type, item.effect_value),
             )
 
@@ -83,7 +83,7 @@ class Database:
 
         # Load the inventory
         cursor.execute(
-            "SELECT item_name, item_hype, effect_value FROM inventory WHERE player_name = ?",
+            "SELECT item_name, item_type, effect_value FROM inventory WHERE player_name = ?",
             (name,),
         )
         item_rows = cursor.fetchall()
@@ -102,6 +102,30 @@ class Database:
             exp=row[5],
             inventory=inventory,
         )
+
+    def get_ranking(self, limit: int = 10) -> list[dict]:
+        cursor = self.conn.cursor()
+        cursor.execute (
+            """
+            SELECT name, level, exp, strength, hp
+            FROM player
+            ORDER BY level DESC, exp DESC, strength DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        rows = cursor.fetchall()
+        return [
+            {
+                "rank": idx + 1,
+                "name": row[0],
+                "level": row[1],
+                "exp": row[2],
+                "strength": row[3],
+                "hp": row[4],
+            }
+            for idx, row in enumerate(rows)
+        ]
     
     def close(self):
         self.conn.close()
