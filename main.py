@@ -1,6 +1,13 @@
 import random
+from rich.console import Console
+from rich.panel import Panel
+from rich.prompt import Prompt, IntPrompt
+
 from models import Player, Monster, Item
 from database import Database
+
+# Initialize Rich Console
+console = Console()
 
 # 1. Function to display the opening title
 def show_title():
@@ -17,13 +24,11 @@ def show_title():
  | \____(      )___) )___
   \______(_______;;; __;;; 
 """
-    print(title)
-    print('Welcome to FIBULA RPG!')
+    console.print(Panel(f"[bold green]{title}[/bold green]\n[bold yellow]Welcome to FIBULA RPG![/bold yellow]", expand=False, border_style="bright_blue"))
 
 # 2. Function to display game over
 def game_over():
-    print('The game is over.')
-    print('Thanks for playing!')
+    console.print(Panel("[bold red]The game is over.[/bold red]\n[italic]Thanks for playing![/italic]", border_style="red", expand=False))
     exit(1)
 
 # 3. Generic Combat Function (uses methods from the Character class)
@@ -36,11 +41,18 @@ def handle_combat(attacker, defender):
 
 # 4. Main Game Function
 def main():
+    console.clear()
     show_title()
     db = Database()
 
     # Game Load or New Game Choice
-    choice = input('1. New Game\n2. Load Game\n')
+    console.print("[cyan]1.[/cyan] New Game")
+    console.print("[cyan]2.[/cyan] Load Game")
+    choice = Prompt.ask(
+        "[bold cyan] Choose an option[/bold cyan]",
+        choices=["1", "2"],
+        default=1
+    )
 
     player = None 
     if choice == 2:
