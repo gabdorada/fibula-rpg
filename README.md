@@ -1,6 +1,6 @@
 # Fibula RPG
 
-```
+```text
                 \||/
                 |  @___oo
       /\  /\   / (__,,,,|
@@ -14,25 +14,45 @@
   \______(_______;;; __;;;
 ```
 
-A text-based RPG for the terminal, written in Python. Name your hero, fight random monsters, level up, find potions and see how far you can get before the game is over.
+A text-based RPG for the terminal, written in Python, styled with **Rich** for dark retro panels, progress bars, sound effects, and a lo-fi holiday easter egg. Name your hero, start a new adventure or load a saved run, battle monsters, level up, use potions, and see how far you can go before game over.
 
-This project was built while following the **Universo Discreto** tutorials by Lucas Lattari, as a way to practice core Python concepts. The original project is [lucaslattari/fibula_rpg](https://github.com/lucaslattari/fibula_rpg/).
+This project was built while following the **Universo Discreto** tutorials by Lucas Lattari, as a way to practice core Python concepts and expand the project into a full CLI + API experience. The original project is [lucaslattari/fibula_rpg](https://github.com/lucaslattari/fibula_rpg/).
+
+## CLI Preview (Video & GIF)
+
+> **Media section:** Replace or uncomment the paths below once you record and save your full CLI walkthrough GIF and/or video in your repository (for example, inside `assets/`).
+
+### Full CLI Walkthrough
+- **GIF preview:**
+  <!-- ![Fibula RPG Full CLI Walkthrough](assets/fibula-cli-walkthrough.gif) -->
+  `assets/fibula-cli-walkthrough.gif` *(Add a recording showing title screen, New/Load Game, combat actions, HP/XP bars, inventory, status panel, and game over)*
+
+- **Video preview:**
+  <!-- [Watch the Full CLI Walkthrough Video](assets/fibula-cli-walkthrough.mp4) -->
+  `assets/fibula-cli-walkthrough.mp4` *(Add an `.mp4`/`.mov` video file or external video link demonstrating the complete terminal session)*
+
+### Christmas Easter Egg (`xmas`) Clip
+- **Easter egg GIF / video:**
+  <!-- ![Fibula RPG Christmas Easter Egg](assets/fibula-xmas-easter-egg.gif) -->
+  `assets/fibula-xmas-easter-egg.gif` *(Optional clip showing the blinking tree and lo-fi audio stopped immediately when pressing `x`)*
 
 ## How to run
 
-You only need Python 3 installed. There are no external dependencies.
+Make sure Python 3 and `rich` are installed, then run `main.py` from the project root:
 
 ```bash
-git clone https://github.com/<your-username>/fibula-rpg.git
+git clone https://github.com/gabdorada/fibula-rpg.git
 cd fibula-rpg
-python fibula_rpg.py
+pip install rich
+python main.py
 ```
+
 ## Documentation & Architecture
 
 All the engineering planning, database modeling, and architectural decisions for this project are fully documented:
 
 - 📖 [Access Full Documentation on Notion](https://agreeable-angle-6cf.notion.site/Fibula-RPG-Documenta-o-41d537a4adae8020b613db24800b908e?source=copy_link)
-  
+
 ### What's inside the documentation:
 - **Overview & Architecture:** High-level project design and layered architecture principles.
 - **System Design:** Breakdown of layers (UI, Controllers, Services, Repositories).
@@ -40,18 +60,19 @@ All the engineering planning, database modeling, and architectural decisions for
 - **Database Modeling:** Relational schema (`players`, `items`, `inventory`) and SQL queries.
 - **REST APIs & Git/GitHub:** Communication patterns and version control workflows.
 
-
 ## How to play
 
-When the game starts you enter your hero's name, and a monster appears. On each turn you pick an action:
+When the game starts, you can choose **New Game** or **Load Game** (using your hero's name to restore saved progress from the database). On each turn, a wild monster appears and you choose an action:
 
 | Option | Action | What it does |
 | --- | --- | --- |
-| 1 | Attack | Attack the monster. If it survives, it strikes back. |
-| 2 | Use item | Open your inventory and use an item (for example, a potion). |
-| 3 | Run away | 50% chance to escape. If you fail, the monster attacks. |
-| 4 | View status | Show HP, level, EXP, strength and inventory. |
-| 5 | Quit game | End the game. |
+| 1 | Attack | Attack the current monster. If it survives, it strikes back. |
+| 2 | Use item | Open your inventory and choose an item (such as a potion) to use. |
+| 3 | Run away | Attempt to escape from the current encounter. If escape fails, the monster attacks. |
+| 4 | View status | Show a status panel with HP, level, EXP (and EXP remaining to level up), strength, and inventory count. |
+| 5 | Quit game | Trigger the game over summary screen and exit. |
+
+> **Hidden command:** Type `xmas` at the action prompt to open the blinking Christmas tree easter egg with lo-fi audio (on supported macOS terminals with `afplay`), and press `x` (or `X`) to close it immediately.
 
 ## Game mechanics
 
@@ -66,64 +87,25 @@ When the game starts you enter your hero's name, and a monster appears. On each 
 | Inventory | empty |
 | Status | alive |
 
-### Combat
+### Combat & Progression
 
-Each attack rolls a random "luck" value from 0 to 6 for both the attacker and the defender:
-
-```
-damage = attacker_strength * attacker_luck - defender_strength * defender_luck
-```
-
-- Luck of 6 is a **critical hit**.
-- Luck of 0 means the attacker **missed**.
-- If the damage is zero or negative, the defender takes no damage.
-
-### Monsters
-
-The monster you face depends on your level:
-
-| Your level | Possible monsters |
-| --- | --- |
-| 1 to 4 | Slime, Goblin, Troll |
-| 5 to 9 | Orc, Mummy, Chimera |
-| 10+ | Dragon |
-
-Each monster has a name, HP, strength and the EXP it gives when defeated.
-
-### Leveling up
-
-Defeating a monster gives you EXP. When your EXP reaches `3 ** level`, you level up:
-
-- HP is fully restored.
-- Strength is doubled.
-
-### Items
-
-After a victory there is a chance to receive a **Potion**. Using a potion restores 20 HP, up to a maximum of 100.
-
-### Game over
-
-The game ends when your HP reaches 0 or when you choose to quit.
+- **Combat & HUD:** Combats resolve attacks and counterattacks between player and monster, updating HP/XP bars and sound feedback (`console.bell()` and non-blocking `afplay` sounds when available).
+- **Monsters:** Spawns monsters scaled to the player's level (`Monster.spawn_for_level(player.level)`), with HP, strength, and EXP rewards.
+- **Leveling up & Loot:** Defeating a monster grants EXP toward leveling up and has a chance to drop a **Potion** (`+20 HP`) into your inventory.
+- **Game over:** Happens when your HP reaches `0` or when you choose to quit (`5`), displaying a centered summary panel with your final stats.
 
 ## Python concepts practiced
 
-- Importing modules (`import random`)
-- Strings, `print`, multi-line and raw strings (for the ASCII art)
-- Functions with parameters and return values (`def`, `return`)
-- Variables and basic types (`str`, `int`, `list`, `bool`)
-- User input with `input()`
-- Conditionals (`if`, `elif`, `else`)
-- Loops (`while`)
-- Lists: adding, removing and iterating over items
-- Random numbers (`random.choice()`, `random.randint()`, `random.random()`)
-- f-strings
-- Program entry point (`if __name__ == "__main__":`)
+- Importing standard library modules (`math`, `os`, `random`, `shutil`, `struct`, `subprocess`, `sys`, `tempfile`, `termios`, `threading`, `time`, `tty`, `wave`) and third-party UI tools (`rich`)
+- Terminal UI layout and live rendering (`Console`, `Panel`, `Align`, `Group`, `Text`, `Live`)
+- Background threads, synchronization events (`threading.Event`), temporary WAV synthesis, and raw/cbreak terminal key listening (`termios`, `tty`)
+- Functions, classes, type hints, conditionals, loops, lists, f-strings, and `if __name__ == "__main__":`
 
 ## Ideas for the future
 
-- Refactor the player and monsters into classes (object-oriented programming)
-- Save and load the game using files
-- More items, monsters and special attacks
+- Expand REST API endpoints (`feat/fastapi`) integrated with the shared SQLite persistence layer
+- Add more items, monsters, and combat actions
+- Add cross-platform audio support beyond macOS `afplay`
 
 ## Credits
 
