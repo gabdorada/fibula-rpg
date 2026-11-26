@@ -22,7 +22,7 @@ This project was built while following the **Universo Discreto** tutorials by Lu
 
 > Full walkthrough of the terminal experience built with `Rich`, including the title screen, `New Game` / `Load Game` persistence with SQLite, combat loop, the `xmas` lo-fi easter egg, and the `Game Over` screen.
 
-<video src="assets/fibula_rpg_demo.mp4" controls width="100%"></video>
+https://github.com/user-attachments/assets/22927886-fac8-49bb-8af7-d5225d6b43bf
 
 ## How to run
 
