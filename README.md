@@ -18,23 +18,11 @@ A text-based RPG for the terminal, written in Python, styled with **Rich** for d
 
 This project was built while following the **Universo Discreto** tutorials by Lucas Lattari, as a way to practice core Python concepts and expand the project into a full CLI + API experience. The original project is [lucaslattari/fibula_rpg](https://github.com/lucaslattari/fibula_rpg/).
 
-## CLI Preview (Video & GIF)
+## CLI Preview
 
-> **Media section:** Replace or uncomment the paths below once you record and save your full CLI walkthrough GIF and/or video in your repository (for example, inside `assets/`).
+> Full walkthrough of the terminal experience built with `Rich`, including the title screen, `New Game` / `Load Game` persistence with SQLite, combat loop, the `xmas` lo-fi easter egg, and the `Game Over` screen.
 
-### Full CLI Walkthrough
-- **GIF preview:**
-  <!-- ![Fibula RPG Full CLI Walkthrough](assets/fibula-cli-walkthrough.gif) -->
-  `assets/fibula-cli-walkthrough.gif` *(Add a recording showing title screen, New/Load Game, combat actions, HP/XP bars, inventory, status panel, and game over)*
-
-- **Video preview:**
-  <!-- [Watch the Full CLI Walkthrough Video](assets/fibula-cli-walkthrough.mp4) -->
-  `assets/fibula-cli-walkthrough.mp4` *(Add an `.mp4`/`.mov` video file or external video link demonstrating the complete terminal session)*
-
-### Christmas Easter Egg (`xmas`) Clip
-- **Easter egg GIF / video:**
-  <!-- ![Fibula RPG Christmas Easter Egg](assets/fibula-xmas-easter-egg.gif) -->
-  `assets/fibula-xmas-easter-egg.gif` *(Optional clip showing the blinking tree and lo-fi audio stopped immediately when pressing `x`)*
+<video src="assets/fibula_rpg_demo.mp4" controls width="100%"></video>
 
 ## How to run
 
